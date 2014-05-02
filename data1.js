@@ -1241,17 +1241,16 @@ function redraw(i, end) {
       if(rockefella != true && seventiesPlaying != true){
       d3.selectAll(".topTen")
         .attr("stroke", "hotpink");
+            d3.selectAll(".deleteme").remove();
       }
 
   //sets visualizations as false when they reach their end
   if(i==2005 && rockefella == true){
     toptenrevenue = 0;
-    d3.selectAll(".deleteme").remove();
     rockefella = false;
   }
   if(i==2005 && seventiesPlaying == true){
     toptenrevenue = 0;
-    d3.selectAll(".deleteme").remove();
     seventiesPlaying = false;
   }
 
