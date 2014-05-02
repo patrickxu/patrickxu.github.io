@@ -635,13 +635,12 @@ var draw_viz = function(yearz, end){
   path_count++;
   d3.select("#gdp g.selectorHand")
     .attr("transform", "translate("+(xGDP(yearz) + 40)+",0)");
-}
 
 
   timer = setTimeout(function(){
       redraw(yearz, end)
     }, delayz);
-}
+  
 var start = function(){
 
   d3.select("#gdp").select("path").remove();
