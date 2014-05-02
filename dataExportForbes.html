@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="../libs/jquery-1.10.1.js"></script>
+    <script src="../libs/jquery.xdomainajax.js"></script>
+    <script src="../libs/d3.v3.min.js"></script>
+    <script src="../libs/FileSaver.js"></script>
+</head>
+<body>
+
+<script>
+    var convertToInt;
+    var dataset = [];
+    var header =[];
+    dataset[0] = "Year \t Rank \t Company \t Revenue \t Profits";
+
+    function runAQueryOn(year, i) {
+      $.ajax({
+        url: "http://money.cnn.com/magazines/fortune/fortune500_archive/full/" + year + "/" + i +".html",
+        type: 'GET',
+        cache: false,
+        success: function(data) {
+            var root,allData, body, table;
+            root = $("<body></body>")
+            root.html(data.responseText)
+
+            var tableau = root.find("#MagList");
+            var next = tableau.find(".maglisttable"); // find all the nodes that have ID "content"
+            var rows = next.find("tr:gt(0)");
+            var points = rows.find("td");
+            // var prehead = tableau.find("tr:eq(0)");
+            // var mid= prehead.find("th:lt(6):gt(0) a:even");
+            /*$.each(mid, function(index, value){
+                console.log($(value).text())
+                newline = index % 6;
+                dataset = dataset + "," + $(value).text();
+                if(newline == 0)
+                  dataset = dataset + "\n";
+            })*/
+
+            for(var k = i + (year - 1955)*500; k < i + rows.length + (year - 1955)* 500; k++){
+              dataset[k] = year.toString();
+            }
+
+            $.each(points, function(index, value) {
+                row = Math.floor(index/4) + i + (year - 1955)*500;
+                check = $(value).text();
+                if(check != ""){
+                  check = convertToInt(check);
+                }
+                  if(index % 4 == 1){
+                    finder= $(value).find("a");
+                    name = finder.text();
+                    dataset[row] = dataset[row] + "\t" + name;
+                  }
+                  else{
+                    dataset[row] = dataset[row] + "\t" + check;
+                  }
+            });
+
+        },
+        error: function() {
+            return console.log("error");
+        }
+    });
+}
+
+var years = [];
+for (var i = 1955; i <= 2005; i++) {
+    years.push(i);
+}
+
+var indices = [1, 101, 201, 301, 401]
+
+for(var z = 0; z < years.length; z++){
+for(var j = 0; j < indices.length; j++){
+  runAQueryOn(years[z], indices[j]);
+}
+}
+
+
+    // saveToFile(forbes,"dataset.tsv")
+
+    convertToInt = function(s) {
+        return parseFloat(s.replace(/,/g, ""), 10);
+    };
+  
+    /* takes an array of strings
+       and writes them line by line into a file given by filename
+     */
+    var saveToFile = function(arrayOfLines, fileName) {
+       /* adds linebreaks at the end*/
+       var blob, blobText;
+       blobText = arrayOfLines.map(function(d) {
+         if (d.endsWith("\n")) {
+           return d;
+         } else {
+           return d + "\n";
+         }
+       });
+       blob = new Blob(blobText, {
+         type: "text/plain;charset=utf-8"
+       });
+       return saveAs(blob, fileName);
+     };
+
+     String.prototype.endsWith = function(suffix) {
+       return this.indexOf(suffix, this.length - suffix.length) !== -1;
+     };
+  
+
+
+
+</script>
+
+
+</body>
+</html>

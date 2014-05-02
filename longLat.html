@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script src="/libs/jquery-1.10.1.js"></script>
+    <script src="/libs/jquery.xdomainajax.js"></script>
+    <script src="/libs/d3.v3.min.js"></script>
+    <script src="/libs/FileSaver.js"></script>
+</head>
+<body>
+
+<script>
+    var convertToInt;
+    var unique_games = [];
+    var header =[];
+    var datas = [];
+    var json_file;
+    var bball_data;
+    var text =[];
+    var lat;
+    var lon;
+    var dataset = [];
+    var datas;
+    dataset[0] = "Year\tRank\tAddress\tCompany\tRevenue\tProfit\tIndustry\tLat\tLon";
+    function runAQueryOn(loc, obj, i, check) {
+      if(check == "yes")
+      $.ajax({
+        url: "https://maps.googleapis.com/maps/api/geocode/json?address=" + loc + "&sensor=false&key=AIzaSyB7ZZTzG8-hhXKpCbuYbRinFb18mrMV55c",
+        // AIzaSyB7ZZTzG8-hhXKpCbuYbRinFb18mrMV55c
+        dataType:'json',
+        async: false,
+        cache: false,
+        success: function(data) {
+            console.log(i);
+            lat= data["results"][0]["geometry"]["location"]["lat"];
+            lon= data["results"][0]["geometry"]["location"]["lng"];
+            dataset[i+1] = obj["Year"] + "\t" + obj["Rank"] + "\t" + obj["Company"] + "\t" + obj["Revenue"] + "\t" + obj["Profit"] + "\t" + obj["Industry"] + "\t" + lat + "\t" + lon;
+            
+            // saveToFile(["Hello World"],"test.txt")
+        },
+        error: function() {
+            return console.log("hi");
+        }
+    });
+  }
+  else{
+    dataset[i+1] = obj["Year"] + "\t" + obj["Rank"] + "\t" + obj["Company"] + "\t" + obj["Revenue"] + "\t" + obj["Profit"] + "\t" + obj["Industry"] + "\t" + 0 + "\t" + 0;
+  }
+   }
+
+
+      d3.tsv("new.tsv", function(error, data) {
+        datas = data;
+        for(var i = 0; i < 1 ; i++){
+          if(data[i]["Address"] != undefined && data[i]["Address"] != "" && data[i]["Address"] != "undefined, undefined"){
+            runAQueryOn(data[i]["Address"], data[i], i, "yes")
+          }
+          else{
+            runAQueryOn(data[i]["Address"], data[i], i, "no");
+          }
+        }
+       
+    })
+
+
+
+        
+
+
+
+
+
+       //run ajax function to access the api
+
+
+
+
+    // convertToInt = function(s) {
+    //     return parseInt(s.replace(/,/g, ""), 10);
+    // };
+  
+    /* takes an array of strings
+       and writes them line by line into a file given by filename
+     */
+    var saveToFile = function(arrayOfLines, fileName) {
+       /* adds linebreaks at the end*/
+       var blob, blobText;
+       blobText = arrayOfLines.map(function(d) {
+         if (d.endsWith("\n")) {
+           return d;
+         } else {
+           return d + "\n";
+         }
+       });
+       blob = new Blob(blobText, {
+         type: "text/plain;charset=utf-8"
+       });
+       return saveAs(blob, fileName);
+     };
+
+     String.prototype.endsWith = function(suffix) {
+       return this.indexOf(suffix, this.length - suffix.length) !== -1;
+     };
+
+
+
+
+</script>
+
+
+</body>
+</html>

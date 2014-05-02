@@ -1,0 +1,454 @@
+<!-- The Changing Landscape of the American Economy -->
+<!-- Katherine Dai and Patrick Xu -->
+<!--Great project! -->
+<!-- needs more comments -->
+<!-- one more for this sync! -->
+<!-- needs more words -->
+<!-- for the sync -->
+
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+<script type ="text/javascript" src="../libs/colorbrewer.js"></script>
+
+<!-- import Bootstrap -->
+<script type="text/javascript" src="../libs/jquery-1.11.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<link href="css/bootstrap.css" rel="stylesheet">
+<script src="js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="../css/idangerous.swiper.css">
+<script defer src="../js/idangerous.swiper-2.1.min.js"></script>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style type="text/css">
+    body {
+      font: 10px sans-serif;
+    }
+    .area {
+      fill: lightgrey;
+      opacity: .4;
+      stroke-width: 0;
+    }
+    .arc path {
+      stroke: #fff;
+    }
+    svg{
+        /*background: #eeeeee;*/
+    }
+    .country{
+        fill: lightgrey;
+        stroke:  black;
+        stroke-width: .15;
+    }
+    text{
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 9pt;
+        stroke: white;
+    }
+    .axis text {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 9pt;
+        stroke: darkgrey;
+    }
+    .axis line,
+    .axis path {
+        fill: none;
+        stroke: white;
+        shape-rendering: crispEdges;
+    }
+    .axis path{display:none;}
+    #catfacts{
+      position: absolute;
+      top:10px;
+      left:10px;
+    }
+    #catfacts aside p {
+      line-height: 12px;
+    }
+    #word1{
+      position: absolute;
+      top: 30px;
+      left:30px;
+    }
+    #facts{
+      position: relative;
+      left:25px;
+    }
+    #revenuefacts{
+      position: absolute;
+      top:435px;
+    }
+    #word2{
+      position: relative;
+      top: 40px;
+    }
+    .d3-tip {
+      height: 60px;
+      line-height: 1;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 9pt;
+      padding: 12px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      border-radius: 0px;
+    }
+    .x.axis path {
+      display: none;
+    }
+    .hourLine{
+
+        fill:none;
+        stroke:steelblue;
+
+    }
+    .brush .extent {
+        fill:gray;
+        opacity: .3;
+    }
+    .content-slide {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 9pt;
+        stroke: white;
+    }
+    .d3-tip {
+      line-height: 1;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 9pt;
+      padding: 12px;
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      border-radius: 2px;
+    }
+    #filler{
+        color: black;
+    }
+    .label{
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 9pt;
+        stroke: black;
+        fill: darkgrey;
+    }
+    .line {
+      fill: none;
+      stroke: white;
+      stroke-width: 2px;
+      opacity: .8;
+    }
+    .yes{
+      display: none;
+          transition: all .5s ease-in-out;
+    }
+    .no{
+      display: none;
+      transition: all .5s ease-in-out;
+    }
+    .gdp{
+      background-color: #1F1F1F;
+      position: absolute;
+      top: 460px;
+    }
+    .gdp path {
+      stroke-width: 2;
+    }
+    #gdptitle {
+      position: absolute;
+      top: 425px;
+    }
+    .pagination {
+      position: absolute;
+      margin-left: 450px;
+    }
+    .swiper-container {
+      width: 1228px;
+      height: 400px;
+      background-color:#1F1F1F;
+      overflow: hidden;
+      position: absolute;
+      left: 0px;
+      top:30px;
+      background: url(../img/swiperback.jpg) repeat-y left;
+      background-size:300px 1px;
+    }
+    .swiper-slide {
+      width: 1228px;
+      height: 400px;
+    }
+    #guide .arrow-left,
+    #guide .arrow-right,
+    #guide .exitintro,
+    #seventiesPlay,
+    #eightiesPlay,
+    #ninetiesPlay { 
+      color: deepskyblue;
+      opacity: 0.6; 
+    }
+    .swiper-container .arrow-right {
+      position: absolute;
+      right: 10px;
+      top: 30%;
+      width: 17px;
+      height: 30px;
+      z-index: 99;
+    }
+    .swiper-container .arrow-left {
+      position: absolute;
+      left:-8px;
+      top: 30%;
+      width: 17px;
+      height: 30px;
+      z-index: 99;
+    }
+    .swiper-slide {
+     float: left;
+    }
+    aside {
+      display: inline-block;
+      padding: 5px 30px 0px 30px;
+      width: 360px;
+      height: 500px;
+      position: absolute;
+      color: white;
+      float: left;
+      font-size: 11pt;
+    }
+    aside p {
+      line-height: 24px;
+    }
+    #guide .arrow-left:hover,
+    #guide .arrow-right:hover,
+    #guide .exitintro:hover,
+    #seventiesPlay:hover,
+    #eightiesPlay:hover,
+    #eightiesPlay:hover { 
+      opacity: 1.0; 
+    }
+    #tableplace {
+      position: relative;
+      top: 0px;
+    }
+    #play {
+      position: relative;
+      background-color: black;
+      color: white;
+      left: 10px;
+      top:550px;
+      opacity: .8;
+    }
+    #play:hover, #piebutton:hover{
+      opacity: 1.0;
+    }
+    #piebutton {
+      position: relative;
+      background-color: black;
+      color: white;
+      left: 30px;
+      top:550px;
+      opacity: .8;
+    }
+    .selectorHand{
+      stroke: deepskyblue;
+      stroke-width: 2px;
+    }
+    .selectorHand:hover {
+      cursor: ew-resize;
+    }
+    #maptitle{
+      position: absolute;
+      left: 15px;
+      top:5px;
+    }
+    #mapbuttons {
+      position: relative;
+      top: 12px;
+      left: 110px;
+    }
+    #map{
+      position: absolute;
+      top:25px;
+    }
+/*    #facts{
+      position: relative;
+      top: 10px;
+    }*/
+    #yeartitle, #revenuetitle {
+      color: deepskyblue;
+    }
+
+    .comp_text, .rank_text{
+      font-family: "Helvetica", Helvetica, Arial, sans-serif;
+      font-size: 10pt;
+      fill:white;
+      font-weight: lighter;
+    }
+    .toptenbar:hover{
+      fill: deepskyblue;
+    }
+    .toptenbar:hover{
+      fill:deepskyblue;
+    }
+    #seventiesPlay, #eightiesPlay, #ninetiesPlay{
+      background: black;
+    }
+    #pie{
+      position:relative;
+    }
+    #pie text{
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 9pt;
+      fill:white;
+      font-weight: lighter;
+    }
+    .row div {
+      -webkit-transition: width 0.3s ease, margin 0.3s ease;
+      -moz-transition: width 0.3s ease, margin 0.3s ease;
+      -o-transition: width 0.3s ease, margin 0.3s ease;
+      transition: width 0.3s ease, margin 0.3s ease;
+    }
+    .col-lg-0 {
+      width: 0;
+      margin-left: 0;
+    }
+    .row div + div {
+      margin-left: 0;
+    }
+    .underline{
+      color: hotpink;
+      line-height: 24px;
+      font-size: 11pt;
+    }
+
+</style>
+
+
+
+<h3 style="text-indent: 1em;">The Changing Landscape of the American Economy <small>Katherine Dai and Patrick Xu</small></h3>
+
+<div class="container">
+  <div class="row">
+    <div class = "col-lg-4 col-sm-offset-1" id="factcol">
+      <aside id="catfacts" style="width: 300px;">
+        <p id = "word1">In</p>
+        <div id="facts"></div> 
+        <p>the <span class="underline">top ten companies</span> in the Forbes Fortune 500 were:</p>
+        <div id="tableplace"></div>
+        <p>and had a total of</p>
+        <div id="revenuefacts"></div>
+        <p id ="word2">in revenue.<p>
+      </aside>
+     
+     <button type="button" class="btn btn-md" id = "play">
+        <span class="fa-stack"><i class="fa fa-play-circle-o fa-stack-2x" ></i></span> Play
+      </button>
+  
+      <button type="button" class="btn btn-md" id = "piebutton">
+        <span class="fa-stack"><i class="fa fa-chevron-circle-right fa-stack-2x" ></i></span> Show by Industry
+      </button>
+
+      <div class="container">
+        <div class="swiper-container" id="guide">
+          <div class="swiper-wrapper">
+              <!--First Slide-->
+              <div class="swiper-slide">  
+                <aside>
+                  <div class="content">
+                  <p>In 1908, Henry Ford began producing and selling the Ford Model T, decimating the formerly robust buggy and whip industry. More recently, Amazon has displaced booksellers and companies in the technology space have dominated the economy in both in terms of overall market cap and growth. We are interested in seeing how the American economy has evolved over the years, both in terms of what the most successful companies do and how big they are.</p>
+                  </div>
+
+                  <a class ="arrow-left"><span class="fa-stack fa-lg" href="#"><i class="fa fa-chevron-left fa-stack-2x"></i></span></a> 
+                  <a class="arrow-right"><span class="fa-stack fa-lg" href="#"><i class="fa fa-chevron-right fa-stack-2x"></i></span></a>
+                  <a class="exitintro"><span class="fa-stack fa-lg" href="#"><i class="fa fa-times-circle fa-stack-2x"></i></span></a>Skip Intro
+                </aside>
+              </div>
+              
+              <!--Second Slide-->
+              <div class="swiper-slide">  
+                <aside>
+                  <div class="content">
+                  <h2>WalMart</h2>
+                  <p>Bastion of retail, began in 1995 to 2005 </p>
+                  </div>
+
+                  <a class ="arrow-left"><span class="fa-stack fa-lg" href="#"><i class="fa fa-chevron-left fa-stack-2x"></i></span></a> 
+                  <a class="arrow-right"><span class="fa-stack fa-lg" href="#"><i class="fa fa-chevron-right fa-stack-2x"></i></span></a>
+                  <a id="seventiesPlay"><span class="fa-stack fa-lg" href="#"><i class="fa fa-play-circle-o fa-stack-2x"></i></span></a>Play Sequence
+                  <a class="exitintro"><span class="fa-stack fa-lg" href="#"><i class="fa fa-times-circle fa-stack-2x"></i></span></a>Skip Intro
+                </aside>
+              </div>
+              
+              <!--Third Slide-->
+              <div class="swiper-slide"> 
+                <aside>
+                  <div class="content">
+                  <h2>Standard</h2>
+                  <p>In 1880, Standard Oil Company held 90% of US refining capacity. In 1911, the Supreme Court forced the breakup of the company into 34 smaller companies, citing the Sherman Antitrust Act. These smaller companies have thrived in the American market and continue to play an important role in our oil economy today. (Featured are Exxon, Mobil, Chevron, Pennzoil, Atlantic Richfield, and Amoco) </p>
+                  </div>
+
+                  <a class ="arrow-left"><span class="fa-stack fa-lg" href="#"><i class="fa fa-chevron-left fa-stack-2x"></i></span></a> 
+                  <a class="arrow-right"><span class="fa-stack fa-lg" href="#"><i class="fa fa-chevron-right fa-stack-2x"></i></span></a>
+                  <a id="eightiesPlay"><span class="fa-stack fa-lg" href="#"><i class="fa fa-play-circle-o fa-stack-2x"></i></span></a>Play Sequence
+                  <a class="exitintro"><span class="fa-stack fa-lg" href="#"><i class="fa fa-times-circle fa-stack-2x"></i></span></a>Skip Intro
+                </aside>
+              </div>
+
+              <!--Fourth Slide-->
+              <div class="swiper-slide"> 
+                <aside>
+                  <div class="content">
+                  <h2>The 1990's</h2>
+                  <p>Donec tristique imperdiet iaculis. Suspendisse vitae faucibus dolor. Fusce tortor nisl, laoreet sit amet elementum quis, dictum in dolor. In mollis euismod ipsum, non scelerisque nisi feugiat nec. Aliquam tristique neque vel massa accumsan tristique at ut tellus.</p>
+                  </div>
+
+                  <a class ="arrow-left"><span class="fa-stack fa-lg" href="#"><i class="fa fa-chevron-left fa-stack-2x"></i></span></a> 
+                  <a class="arrow-right"><span class="fa-stack fa-lg" href="#"><i class="fa fa-chevron-right fa-stack-2x"></i></span></a>
+                  <a id="ninetiesPlay"><span class="fa-stack fa-lg" href="#"><i class="fa fa-play-circle-o fa-stack-2x"></i></span></a>Play Sequence
+                  <a class="exitintro"><span class="fa-stack fa-lg" href="#"><i class="fa fa-times-circle fa-stack-2x"></i></span></a>Close Intro
+                </aside>
+              </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="col-lg-0" id="piecol">
+    <div id="pie" style="position:absolute; left:-175px; top: 150px;">
+    </div>
+  </div>
+
+  <div class="col-lg-4" id="lastcol">
+    <div class="row">
+      <h5 id="maptitle">Headquarters</h5>
+        <div class="btn-group btn-group-xs" id="mapbuttons">
+          <button type="button" id="locations" class="btn btn-primary">Locations</button>
+          <button type="button" id="chorobutton" class="btn btn-default">Choropleth</button>
+        </div>
+        <div id="map"></div>
+        <div id="legend"></div>
+    </div>
+      <div class="row">
+        <h5 id="gdptitle">U.S. Yearly GDP Growth</h5>
+        <div id="gdp"></div>
+      </div>
+  </div>
+
+</div>
+</div>
+
+
+
+<script src="data1.js"></script>
+
+</body>
+</html>
