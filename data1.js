@@ -1104,6 +1104,7 @@ d3.select("#play").on("click", function(d, i){
 
 //large redraw function that draws visualization. also recursive
 function redraw(i, end) {
+  toptenrevenue = 0;
   //stop redraw if we are at the end - play button shows again
   if(i == 2005){
     isPlaying = false;
@@ -1246,11 +1247,9 @@ function redraw(i, end) {
 
   //sets visualizations as false when they reach their end
   if(i==2005 && rockefella == true){
-    toptenrevenue = 0;
     rockefella = false;
   }
   if(i==2005 && seventiesPlaying == true){
-    toptenrevenue = 0;
     seventiesPlaying = false;
   }
 
