@@ -1,0 +1,44 @@
+
+GitHub Repository: https://github.com/patrickxu/patrickxu.github.io
+Project Website: patrickxu.github.io
+Youtube Video: http://youtu.be/NfRH8dV72y8
+
+
+Functionality of Website:
+
+On loading the screen, we start off with an introduction of our website. The user has the option of either skipping the intro by hitting "Skip Intro", or hitting the right button to move on to the two stories we present. 
+
+To play the stories, hit "Play Sequence". To pause, hit "Pause Sequence". This applies to both our stories. At any time, the user is allowed to hit "Close Intro" or "Skip Intro" to go to the more general visualization.
+
+For our top 10 chart, the user is allowed to hover over any of the company names to make the tool tip on the map show up. Clicking does not do anything.
+
+Hitting "Show by Industry" will slide out a Pie Chart representing the top 4 industries in the given year. Hit the "Show by Industry" button again to hide the Pie Chart.
+
+Next to Headquarters, there are two buttons: "Locations" and "Choropleth". Hitting "Choropleth" will set a choropleth fill to the map and a legend will show up, but will not hide the circles. Pressing on "Locations", however, will hide the circles. Either of these can be toggled whenever the user wants.
+
+For the line chart, the user can drag the sky blue rectangle to set the visualization at whichever year he or she wants. 
+
+Finally, hitting play will play the visualization from 1955 to 2005. The user can hit pause whenever he or she wants to stop the visualization, and the entire visualization, which is linked to the play button, should pause. Accordingly, everything should update dynamically while the visualization plays. 
+ 
+Relevant Files:
+1. data1.js - all of our Javascript functions that we have written ourself. It is also the final version of our javascript file. 
+2. dataExportForbes.html - file used to data scrape Forbes website
+3. index.html - html that we used to place all of our svg's down and call the relevant Javascript files
+4. libs - Folder that contains all of the libraries that we have relied on
+5. js - Folder containing javascript files we've relied on (bootstrap and swiper, swiper was used to create our initial intro page that allows the users to go through our introduction)
+6. Dai Xu Process Book Final - our final process book
+7. Design Studio 3 - our third design studio
+8. css - contains bootstrap css
+9. data - contains all of our data that we have used. Our final dataset is master.tsv.
+For the GDP information, we used GDP.csv
+10. img - folder purely for our the swipe forward and swiper backwards buttons
+NOTE: There are many extra js files in here that were used to manipulate data or test our functions. Our final submission will be the data1.js
+
+Sources:
+Inspiration: http://remittances.herokuapp.com/?en
+Pie Chart: http://blog.stephenboak.com/2011/08/07/easy-as-a-pie.html
+Swiper: http://www.idangero.us/sliders/swiper/api.php
+Hide/Show Pie Chart: http://stackoverflow.com/questions/17053482/adding-onclick-event-to-show-a-hidden-div-above-each-bar-in-d3-js-maybe-im-mis
+Legend: https://gist.github.com/nowherenearithaca/4449376
+
+
