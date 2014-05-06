@@ -268,6 +268,7 @@ function loadData() {
       toptizzles = data.filter(function(d){
         return parseInt(d["Rank"]) <= 10;
       })
+      topterevenue = 0;
 
       //looping through to calculate the revenue
       for(var i = 0; i < 10; i++){
@@ -1104,7 +1105,6 @@ d3.select("#play").on("click", function(d, i){
 
 //large redraw function that draws visualization. also recursive
 function redraw(i, end) {
-  toptenrevenue = 0;
   //stop redraw if we are at the end - play button shows again
   if(i == 2005){
     isPlaying = false;
@@ -1277,6 +1277,7 @@ function redraw(i, end) {
           }
         }
 
+          toptenrevenue = 0;
         //calculates topten revenue
       for(var hold = 0; hold<curr_10.length; hold++){
         toptenrevenue += parseInt(curr_10[hold]["Revenue"]);
