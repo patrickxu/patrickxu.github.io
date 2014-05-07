@@ -1,4 +1,3 @@
-
 GitHub Repository: https://github.com/patrickxu/patrickxu.github.io
 Project Website: patrickxu.github.io
 Youtube Video: http://youtu.be/NfRH8dV72y8
@@ -8,15 +7,15 @@ Functionality of Website:
 
 On loading the screen, we start off with an introduction of our website. The user has the option of either skipping the intro by hitting "Skip Intro", or hitting the right button to move on to the two stories we present. 
 
-To play the stories, hit "Play Sequence". To pause, hit "Pause Sequence". This applies to both our stories. At any time, the user is allowed to hit "Close Intro" or "Skip Intro" to go to the more general visualization.
+To play the stories, hit "Play Sequence". To pause, hit "Pause Sequence". This applies to both our stories. At any time, the user is allowed to hit "Close Intro" or "Skip Intro" to go to the more general visualization. For the WalMart story, the pink circle represents WalMart. For the story on Standard Oil, the orange circles represent the companies that spawned from Standard Oil. In general, the radius of the circle represents the revenue, in terms of the min and max for the companies of that year. 
 
 For our top 10 chart, the user is allowed to hover over any of the company names to make the tool tip on the map show up. Clicking does not do anything.
 
-Hitting "Show by Industry" will slide out a Pie Chart representing the top 4 industries in the given year. Hit the "Show by Industry" button again to hide the Pie Chart.
+Hitting "Show by Industry" will slide out a Pie Chart representing the top 4 industries in the given year. Hit the "Show by Industry" button again to hide the Pie Chart. Hovering over the various slices of the pie chart will highlight the companies with the given industry on the map. 
 
 Next to Headquarters, there are two buttons: "Locations" and "Choropleth". Hitting "Choropleth" will set a choropleth fill to the map and a legend will show up, but will not hide the circles. Pressing on "Locations", however, will hide the circles. Either of these can be toggled whenever the user wants.
 
-For the line chart, the user can drag the sky blue rectangle to set the visualization at whichever year he or she wants. 
+For the line chart, the user can drag the sky blue rectangle to set the visualization at whichever year he or she wants, and then hit play to start the visualization again.
 
 Finally, hitting play will play the visualization from 1955 to 2005. The user can hit pause whenever he or she wants to stop the visualization, and the entire visualization, which is linked to the play button, should pause. Accordingly, everything should update dynamically while the visualization plays. 
  
